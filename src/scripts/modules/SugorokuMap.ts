@@ -133,9 +133,9 @@ export default class SugorokuMap {
   }
 
   private drawDice(): void {
-    this.diceElem.style.position = 'fixed'
-    this.diceElem.style.right = '10px'
-    this.diceElem.style.top = '10px'
+    this.diceElem.style.marginTop = '15px'
+    this.diceElem.style.marginLeft = '15px'
+    this.diceElem.style.fontSize = '24px'
     this.diceElem.textContent = 'サイコロ'
     document.body.appendChild(this.diceElem)
   }
