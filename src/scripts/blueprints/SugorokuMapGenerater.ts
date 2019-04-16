@@ -27,7 +27,7 @@ export default class SugorokuMapGenerater {
       index: [i, j],
       prev: null,
       selectableDirections: []
-    })))
+    } as ICell)))
   }
 
   private determineStartAndEnd(grid: ICell[][]): [ICell[][], { start: Pos, goal: Pos }] {
@@ -46,7 +46,7 @@ export default class SugorokuMapGenerater {
   private setSelectableDirections(): void{
     this.deepenGrid(this.grid)
       .map(cell => {
-        const pos = new Pos(...cell.index)
+        const pos = new Pos(cell.index[0], cell.index[1])
         const aroundPassage = this.hasSomeAround(this.grid, pos, CellType.Passage)
 
         // NOTE: スタート位置から進むことが可能な1方向を求める
@@ -78,7 +78,7 @@ export default class SugorokuMapGenerater {
         return cell
       })
       .map(cell => {
-        const pos = new Pos(...cell.index)
+        const pos = new Pos(cell.index[0], cell.index[1])
         if (!cell.prev) return cell // NOTE: CellTypeがPassage以外はnullなのでそのまま返す
         const prev = cell.prev
 
@@ -196,7 +196,7 @@ export default class SugorokuMapGenerater {
         return x !== 0 && x !== grid[0].length -1 && y !== 0 && y !== grid.length - 1
       })
       .filter(cell => {
-        const pos = new Pos(...cell.index)
+        const pos = new Pos(cell.index[0], cell.index[1])
         const aroundPassage = this.hasSomeAround(grid, pos, CellType.Passage)
         return (
           ((aroundPassage[Direction.East] || aroundPassage[Direction.West]) && (!aroundPassage[Direction.North] && !aroundPassage[Direction.South])) ||
@@ -211,7 +211,7 @@ export default class SugorokuMapGenerater {
         })
         return canMap ? [...filteredCells, cell] : filteredCells
       }, [])
-      .forEach(cell => this.setBranch(grid, new Pos(...cell.index)))
+      .forEach(cell => this.setBranch(grid, new Pos(cell.index[0], cell.index[1])))
   }
 
   private setBranch(grid: ICell[][], pos: Pos): void {

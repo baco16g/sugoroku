@@ -106,10 +106,10 @@ export default class SugorokuMap {
 
   private drawMap(block: IBlock): void {
     const { x, y, width, height, type, index } = block
-    const pos = new Pos(...index)
+    const pos = new Pos(index[0], index[1])
     const g = document.createElementNS('http://www.w3.org/2000/svg', 'g')
     const cell = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
-    cell.dataset.coordinate = `${pos.x}-${pos.y}`
+    cell.setAttribute('data-coordinate', `${pos.x}-${pos.y}`)
     cell.setAttribute('x', x.toString())
     cell.setAttribute('y', y.toString())
     cell.setAttribute('width', width.toString())
