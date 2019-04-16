@@ -1,0 +1,110 @@
+{
+  "name": "izapack-starter-kit",
+  "version": "2.0.0",
+  "scripts": {
+    "prestart": "npm run del",
+    "start": "run-p mkdir cp:dev server build:*:dev open",
+    "del": "rimraf ./dist",
+    "cp:dev": "cpx './src/images/**/*.{jpg,png,gif,svg,mp4,ico}' './dist/assets/images/' --watch",
+    "cp:prod": "cpx './src/images/**/*.{jpg,png,gif,svg,mp4,ico}' './dist/assets/images/'",
+    "mkdir": "mkdirp ./dist/assets/styles/",
+    "server": "node ./server/index.js",
+    "open": "opn http://localhost:3000",
+    "preview": "run-s del mkdir cp:prod build:*:prod",
+    "precommit": "lint-staged",
+    "build:js:dev": "webpack --mode development --module-bind ts=ts-loader --module-bind js=babel-loader --resolve-extensions .ts,.js --watch --entry ./src/scripts/index.ts --output ./dist/assets/scripts/app.js --output-chunk-filename [id].js --output-public-path /assets/scripts/ --devtool inline-source-map",
+    "build:js:prod": "webpack --mode production --module-bind ts=ts-loader --module-bind js=babel-loader --resolve-extensions .ts,.js --entry ./src/scripts/index.ts --output ./dist/assets/scripts/app.js --output-chunk-filename [id].js --output-public-path /assets/scripts/",
+    "build:css:dev": "stylus --include-css ./src/styles/index.styl --out ./dist/assets/styles/app.css --use autoprefixer-stylus --watch",
+    "build:css:prod": "stylus --include-css ./src/styles/index.styl --out ./dist/assets/styles/app.css --use autoprefixer-stylus --compress",
+    "build:html:prod": "pug --obj ./src/data/sample.json ./src/html --basedir ./src/html/ --pretty --out ./dist/",
+    "sync": "rsync -auvz --delete --ignore-times --checksum --exclude='*.php' --exclude='.*' ./dist/ ./htdocs/",
+    "publish": "run-s del mkdir cp:prod build:*:prod sync",
+    "test": "jest"
+  },
+  "lint-staged": {
+    "./src/scripts/**/*.(t|j)s": [
+      "tslint",
+      "prettier --write",
+      "git add"
+    ],
+    "./src/styles/**/*.styl": [
+      "stylus-supremacy format glob --replace --options ./supremacy.json",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.ts$": "<rootDir>/node_modules/ts-jest",
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
+    },
+    "moduleNameMapper": {
+      "^modules/(.*)": "<rootDir>/src/scripts/modules/$1"
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx"
+    ],
+    "testMatch": [
+      "**/__tests__/**/*.(t|j)s?(x)",
+      "**/?(*.)+(spec|test).(t|j)s?(x)"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://i-studio.commits.jp/ist-tech/izapack-starter-kit.git"
+  },
+  "author": "shunichi.izawa",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "7.0.0",
+    "@babel/plugin-proposal-class-properties": "7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "7.0.0",
+    "@babel/plugin-syntax-dynamic-import": "7.0.0",
+    "@babel/preset-env": "7.0.0",
+    "@babel/preset-typescript": "7.0.0",
+    "@commitlint/cli": "7.3.1",
+    "@types/jest": "23.3.12",
+    "@types/jsdom": "12.2.1",
+    "@types/uuid": "3.4.4",
+    "autoprefixer-stylus": "0.14.0",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "23.6.0",
+    "babel-loader": "8.0.0-beta.0",
+    "cpx": "1.5.0",
+    "express": "4.16.2",
+    "husky": "1.3.1",
+    "jest": "23.6.0",
+    "json5": "1.0.1",
+    "lint-staged": "8.1.0",
+    "mkdirp": "0.5.1",
+    "npm-run-all": "4.1.2",
+    "opn-cli": "3.1.0",
+    "prettier": "1.15.3",
+    "pug": "2.0.0-rc.4",
+    "pug-cli": "https://github.com/pugjs/pug-cli.git",
+    "regenerator-runtime": "0.13.1",
+    "rimraf": "2.6.2",
+    "stylus": "0.54.5",
+    "stylus-supremacy": "2.9.1",
+    "ts-jest": "23.10.5",
+    "ts-loader": "5.3.3",
+    "tslint": "5.12.1",
+    "tslint-config-prettier": "1.17.0",
+    "typescript": "2.9.2",
+    "webpack": "4.15.1",
+    "webpack-cli": "3.0.8"
+  },
+  "dependencies": {
+    "babel-polyfill": "6.26.0",
+    "normalize.css": "8.0.0",
+    "uuid": "3.3.2",
+    "whatwg-fetch": "2.0.3"
+  }
+}

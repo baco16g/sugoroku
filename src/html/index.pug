@@ -1,0 +1,11 @@
+extend _template
+
+block vars
+  - title = 'xxx'
+  - description = 'xxx'
+  - keywords = 'xxx'
+  - img = 'http://localhost:3000/assets/images/share/ogp.jpg'
+  - url = 'http://localhost:3000'
+
+block main
+  svg(data-module="SugorokuMap" width="500" height="500" data-options='{ "mapWidth": 500, "mapHeight": 500, "blockWidth": 10, "blockHeight": 10, "margin": 10 }')

@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "target": "es5",
+    "module": "esnext",
+    "moduleResolution": "Node",
+    "removeComments": false,
+    "baseUrl": "./",
+    "paths": {
+      "modules/*": ["src/scripts/modules/*"]
+    },
+    "lib": ["es2017", "dom"],
+    "sourceMap": true,
+    "typeRoots": ["@typings"]
+  },
+  "include": ["./src/**/*.ts"],
+  "exclude": [
+    "node_modules",
+    "./src/__tests__/**/*.ts"
+  ]
+}

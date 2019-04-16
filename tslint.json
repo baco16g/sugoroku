@@ -1,0 +1,45 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended",
+        "tslint-config-prettier"
+    ],
+    "jsRules": {
+        "no-console": {
+            "severity": "warning"
+        },
+        "arrow-return-shorthand": [true, "multiline"],
+        "class-name": true,
+        "curly": false,
+        "no-string-literal": false,
+        "variable-name": [true, "ban-keywords", "check-format", "allow-snake-case"]
+    },
+    "rules": {
+        "no-console": {
+            "severity": "warning"
+        },
+        "arrow-return-shorthand": [true, "multiline"],
+        "class-name": true,
+        "curly": false,
+        "member-ordering": [
+            true,
+            {
+                "order": [
+                    "private-static-field",
+                    "private-instance-field",
+                    "private-constructor",
+                    "public-static-field",
+                    "public-instance-field",
+                    "public-constructor",
+                    "protected-instance-method",
+                    "private-instance-method",
+                    "public-instance-method"
+                ]
+            }
+        ],
+        "no-string-literal": false,
+        "object-literal-sort-keys": false,
+        "max-classes-per-file": false
+    },
+    "rulesDirectory": []
+}
