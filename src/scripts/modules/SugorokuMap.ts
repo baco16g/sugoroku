@@ -31,13 +31,22 @@ export default class SugorokuMap {
     let n = this.dice.shake()
     window.alert(n)
     while (n > 0) {
+      if (this.currentPos.isEqual(this.mapGenerater.goal)) {
+        window.alert('ゴール！')
+        n = 0
+        break
+      }
+
       await sleep(200)
+
       const direction = this.checkDirectionToGo()
       if (direction === null) {
         n = 0
+        break
       } else {
         this.goForward(direction)
       }
+
       n--
     }
   }
@@ -45,10 +54,6 @@ export default class SugorokuMap {
   private checkDirectionToGo(): Direction | null {
     const { x, y } = this.currentPos
 
-    if (this.currentPos.isEqual(this.mapGenerater.goal)) {
-      window.alert('ゴール！')
-      return null
-    }
     const currentCell = this.map.reduce<IBlock[]>((rows, row) => [...rows, ...row], [])
       .find(cell => {
         const [tx, ty] = cell.index
