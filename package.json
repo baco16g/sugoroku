@@ -1,5 +1,5 @@
 {
-  "name": "izapack-starter-kit",
+  "name": "sugoroku",
   "version": "2.0.0",
   "scripts": {
     "prestart": "npm run del",
@@ -56,11 +56,6 @@
       "**/?(*.)+(spec|test).(t|j)s?(x)"
     ]
   },
-  "repository": {
-    "type": "git",
-    "url": "https://i-studio.commits.jp/ist-tech/izapack-starter-kit.git"
-  },
-  "author": "shunichi.izawa",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "7.0.0",
